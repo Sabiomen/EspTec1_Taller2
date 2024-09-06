@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+.menu__juego {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.jugador {
+    text-align: center;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+    background-color: #ccc;
+    margin-bottom: 10px;
+}
+
+.barravida {
+    width: 200px;
+    height: 25px;
+    background-color: red;
+    margin-bottom: 20px;
+}
+.vidatexto{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    top: 0;
+    left: 0;
+    line-height: 25px;
+}
+
+.boton   {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
