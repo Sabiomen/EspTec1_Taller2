@@ -6,7 +6,7 @@ body {
 
 .menu__juego {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     margin-top: 50px;
 }
@@ -45,4 +45,15 @@ img {
     color: white;
     border: none;
     cursor: pointer;
+}
+#jugador1{
+    position: absolute;
+    top: 100px; /* Posición inicial */
+    left: 300px; /* Posición inicial */
+}
+
+#jugador2 {
+    position: absolute;
+    top: 100px;
+    right: 300px; /* Jugador 2 comienza en el lado derecho */
 }
