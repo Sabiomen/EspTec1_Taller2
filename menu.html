@@ -11,29 +11,49 @@
         <h1>Selecciona tu Personaje</h1>
         
         
-        <div class="jugador" id="jugador1">
+        <div class="jugador" id="player1">
             <h2>Jugador 1</h2>
             <div class="personajes">
-                <button onclick="seleccionarPersonaje('personaje1', 1)">Personaje 1</button>
-                <button onclick="seleccionarPersonaje('personaje2', 1)">Personaje 2</button>
-                <button onclick="seleccionarPersonaje('personaje3', 1)">Personaje 3</button>
+                <div class="contenedor">
+                    <img src="resources/Zakuiiselectscreen.png" alt="Personaje1">
+                    <button onclick="seleccionarPersonaje('personaje1', 1)">Personaje 1</button>
+                </div>
+                <div class="contenedor">
+                    <img src="resources/Zakuiiselectscreen.png" alt="Personaje2">
+                    <button onclick="seleccionarPersonaje('personaje2', 1)">Personaje 2</button>
+                </div>
+                <div class="contenedor">
+                    <img src="resources/Zakuiiselectscreen.png" alt="Personaje3">
+                    <button onclick="seleccionarPersonaje('personaje3', 1)">Personaje 3</button>
+                </div>
             </div>
         </div>
-        <div class="jugador" id="jugador2">
+        <div class="jugador" id="player2">
             <h2>Jugador 2</h2>
             <div class="personajes">
-                <button onclick="seleccionarPersonaje('personaje1', 2)">Personaje 1</button>
-                <button onclick="seleccionarPersonaje('personaje2', 2)">Personaje 2</button>
-                <button onclick="seleccionarPersonaje('personaje3', 2)">Personaje 3</button>
+                <div class="contenedor">
+                    <img src="resources/Zakuiiselectscreen.png" alt="Personaje1">
+                    <button onclick="seleccionarPersonaje('personaje1', 2)">Personaje 1</button>
+                </div>
+                <div class="contenedor">
+                    <img src="resources/Zakuiiselectscreen.png" alt="Personaje2">
+                    <button onclick="seleccionarPersonaje('personaje2', 2)">Personaje 2</button>
+                </div>
+                <div class="contenedor">
+                    <img src="resources/Zakuiiselectscreen.png" alt="Personaje3">
+                    <button onclick="seleccionarPersonaje('personaje3', 2)">Personaje 3</button>
+                </div>
             </div>
         </div>
+
+        <button onclick="iniciarPartida()" >Iniciar Partida</button>
     </div>
 
 
 
 
 
-    <script src="services/index.js"></script>
+    <script src="services/indexMenu.js"></script>
 
 </body>
 </html>
