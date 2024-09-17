@@ -1,15 +1,28 @@
+
+#arena{
+    position: relative;
+    width: 800px;
+    height: 600px;
+    border: 2px solid black;
+    margin: 0 auto;
+    background-color: lightgray;
+    overflow: hidden;
+}
 .player {
     width: 171px;
     height: 171px;
+    position: absolute;
+    background-size: cover;
 }
 
-.personaje1 {
+#player1 {
     background-image: url('resources/zakuii.png');
-
-}
-.personaje2{
-
-}
-.personaje3{
+    top: 0;
+    left: 0;
     
+}
+#player2{
+    background-image: url('resources/zakuii.png');
+    top: 0;
+    right: 0;
 }
