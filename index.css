@@ -1,7 +1,7 @@
-/* index.css */
+
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #fafafa;
+    background-color: #201e1e;
     text-align: center;
 }
 
@@ -17,7 +17,7 @@ body {
     padding: 20px;
     border: 2px solid #555;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: #555;
     transition: transform 0.2s;
 }
 
@@ -42,7 +42,7 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #007BFF;
+    background-color: #94302b;
     color: white;
     transition: background-color 0.3s;
 }

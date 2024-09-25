@@ -1,12 +1,15 @@
-// Recuperar personajes seleccionados
 const jugador1 = localStorage.getItem("jugador1");
 const jugador2 = localStorage.getItem("jugador2");
+const arena = document.getElementById('arena');
+const player1HealthDisplay = document.getElementById('player1-health');
+const player2HealthDisplay = document.getElementById('player2-health');
 
-// Agregar texto 
-document.getElementById("player1").innerText = "Jugador 1 ";
-document.getElementById("player2").innerText = "Jugador 2";
+let player1Health = 100;
+let player2Health = 100;
 
-// Puedes agregar estilos o imágenes basadas en el personaje seleccionado
+document.getElementById("player1").innerText = "Jugador 1 "+player1Health;
+document.getElementById("player2").innerText = "Jugador 2 "+player2Health;
+
 if (jugador1) {
     document.getElementById("player1").classList.add(jugador1);
 }
@@ -14,80 +17,148 @@ if (jugador2) {
     document.getElementById("player2").classList.add(jugador2);
 }
 
+let player1X = arena.offsetWidth / 2 - player1.offsetWidth / 2;
+let player2X = arena.offsetWidth / 2 - player2.offsetWidth / 2;
 
+const playerSpeed = 5;
+const laserSpeed = 5;
+const lasers = []; 
 
-// Inicializar posiciones
-let player1Position = { top: 0, left: 0 };
-let player2Position = { top: 0, left: 600 };
-// obtiene el tamaño de la arena
-const arena = document.getElementById("arena");
-const arenaWidth = arena.offsetWidth;
-const arenaHeight = arena.offsetHeight;
+const keys = {};  
 
+document.addEventListener('keydown', function(e) {
+    keys[e.key] = true;
 
-
-function movePlayer(player, direction) {
-    const element = document.getElementById(player);
-    const playerWidth = element.offsetWidth;
-    const playerHeight = element.offsetHeight;
-
-    let currentPosition = player === 'player1' ? player1Position : player2Position;
-
-    switch (direction) {
-        case 'up':
-            if (currentPosition.top > 0) { // Verifica que no supere el límite superior
-                currentPosition.top -= 10;
-            }
-            break;
-        case 'down':
-            if (currentPosition.top + playerHeight < arenaHeight) { // Verifica que no supere el límite inferior
-                currentPosition.top += 10;
-            }
-            break;
-        case 'left':
-            if (currentPosition.left > 0) { // Verifica que no supere el límite izquierdo
-                currentPosition.left -= 10;
-            }
-            break;
-        case 'right':
-            if (currentPosition.left + playerWidth < arenaWidth) { // Verifica que no supere el límite derecho
-                currentPosition.left += 10;
-            }
-            break;
-    }
-
-    // Actualizar la posición en pantalla
-    element.style.top = currentPosition.top + 'px';
-    element.style.left = currentPosition.left + 'px';
-}
-
-// Escuchar eventos de teclado
-document.addEventListener('keydown', (event) => {
-    switch (event.key) {
-        case 'w':
-            movePlayer('player1', 'up');
-            break;
-        case 's':
-            movePlayer('player1', 'down');
-            break;
-        case 'a':
-            movePlayer('player1', 'left');
-            break;
-        case 'd':
-            movePlayer('player1', 'right');
-            break;
-
-        case 'ArrowUp':
-            movePlayer('player2', 'up');
-            break;
-        case 'ArrowDown':
-            movePlayer('player2', 'down');
-            break;
-        case 'ArrowLeft':
-            movePlayer('player2', 'left');
-            break;
-        case 'ArrowRight':
-            movePlayer('player2', 'right');
-            break;
+    if (e.key === 'g' && !keys['shootingPlayer1']) {
+        shootLaser(player1X, 'up');
+        keys['shootingPlayer1'] = true;
+    } else if (e.key === 'm' && !keys['shootingPlayer2']) {
+        shootLaser(player2X, 'down');
+        keys['shootingPlayer2'] = true;
     }
 });
+
+document.addEventListener('keyup', function(e) {
+    keys[e.key] = false;
+
+    if (e.key === 'g') keys['shootingPlayer1'] = false;
+    if (e.key === 'm') keys['shootingPlayer2'] = false;
+});
+
+function gameLoop() {
+    if (keys['a'] && player1X > 0) {
+        player1X -= playerSpeed;
+    } else if (keys['d'] && player1X < arena.offsetWidth - player1.offsetWidth) {
+        player1X += playerSpeed;
+    }
+
+    if (keys['ArrowLeft'] && player2X > 0) {
+        player2X -= playerSpeed;
+    } else if (keys['ArrowRight'] && player2X < arena.offsetWidth - player2.offsetWidth) {
+        player2X += playerSpeed;
+    }
+
+    player1.style.left = `${player1X}px`;
+    player2.style.left = `${player2X}px`;
+    moveLasers();
+    
+    requestAnimationFrame(gameLoop);  
+}
+
+function shootLaser(xPosition, direction) {
+    const laser = document.createElement('div');
+    laser.classList.add('laser');
+    laser.style.left = `${xPosition + 23}px`; 
+    laser.direction = direction;
+
+    if (direction === 'up') {
+        laser.style.bottom = '60px';
+    } else {
+        laser.style.top = '60px'; 
+    }
+
+    arena.appendChild(laser);
+    lasers.push(laser);
+}
+
+
+function moveLasers() {
+    lasers.forEach((laser, index) => {
+        if (laser.direction === 'up') {
+            const currentBottom = parseInt(laser.style.bottom);
+            if (currentBottom >= arena.offsetHeight) {
+                laser.remove();
+                lasers.splice(index, 1);
+            } else {
+                laser.style.bottom = `${currentBottom + laserSpeed}px`;
+
+               
+                if (checkCollision(laser, player2)) {
+                    laser.remove();
+                    lasers.splice(index, 1);
+                    player2Health -= 10;
+                    player2HealthDisplay.textContent = player2Health;
+                    if (player2Health <= 0) {
+                        alert('Player 1 wins!');
+                        resetGame();
+                    }
+                }
+            }
+        } else {
+            const currentTop = parseInt(laser.style.top);
+            if (currentTop >= arena.offsetHeight) {
+                laser.remove();
+                lasers.splice(index, 1);
+            } else {
+                laser.style.top = `${currentTop + laserSpeed}px`;
+
+                
+                if (checkCollision(laser, player1)) {
+                    laser.remove();
+                    lasers.splice(index, 1);
+                    player1Health -= 10;
+                    player1HealthDisplay.textContent = player1Health;
+                    if (player1Health <= 0) {
+                        alert('Player 2 wins!');
+                        resetGame();
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+function checkCollision(laser, player) {
+    const laserRect = laser.getBoundingClientRect();
+    const playerRect = player.getBoundingClientRect();
+
+    return !(laserRect.right < playerRect.left ||
+             laserRect.left > playerRect.right ||
+             laserRect.bottom < playerRect.top ||
+             laserRect.top > playerRect.bottom);
+}
+
+
+function resetGame() {
+    player1Health = 100;
+    player2Health = 100;
+    player1HealthDisplay.textContent = player1Health;
+    player2HealthDisplay.textContent = player2Health;
+
+   
+    player1X = arena.offsetWidth / 2 - player1.offsetWidth / 2;
+    player2X = arena.offsetWidth / 2 - player2.offsetWidth / 2;
+    player1.style.left = `${player1X}px`;
+    player2.style.left = `${player2X}px`;
+
+    
+    lasers.forEach(laser => laser.remove());
+    lasers.length = 0;  
+
+    for (let key in keys) {
+        keys[key] = false;
+    }
+}
+
+gameLoop();

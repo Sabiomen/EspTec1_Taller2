@@ -1,14 +1,26 @@
-
-#arena{
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    font-family: Arial, sans-serif;
+    flex-direction: column;
+}   
+#arena {
     position: relative;
-    width: 800px;
-    height: 600px;
-    border: 2px solid black;
+    width: 800px;  
+    height: 500px;  
     margin: 0 auto;
-    background-color: lightgray;
-    overflow: hidden;
+    background-color: #333;  
+    border: 2px solid #555;  
 }
+
 .player {
+    position: absolute;
     width: 171px;
     height: 171px;
     position: absolute;
@@ -17,12 +29,27 @@
 
 #player1 {
     background-image: url('resources/zakuii.png');
-    top: 0;
-    left: 0;
-    
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 #player2{
     background-image: url('resources/zakuii.png');
     top: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
+
+
+.laser {
+    position: absolute;
+    width: 4px;
+    height: 20px;
+    background-color: yellow;
+}
+
+#info {
+    margin-top: 10px;
+    text-align: center;
+}
+
