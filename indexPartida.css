@@ -31,13 +31,12 @@ body {
     background-image: url('resources/zakuii.png');
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%);
+    
 }
 #player2{
     background-image: url('resources/zakuii.png');
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
 }
 
 
@@ -47,9 +46,3 @@ body {
     height: 20px;
     background-color: yellow;
 }
-
-#info {
-    margin-top: 10px;
-    text-align: center;
-}
-

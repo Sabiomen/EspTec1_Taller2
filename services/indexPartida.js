@@ -1,14 +1,15 @@
 const jugador1 = localStorage.getItem("jugador1");
 const jugador2 = localStorage.getItem("jugador2");
 const arena = document.getElementById('arena');
-const player1HealthDisplay = document.getElementById('player1-health');
-const player2HealthDisplay = document.getElementById('player2-health');
 
 let player1Health = 100;
 let player2Health = 100;
 
+const jugador1_name = document.getElementById("player1")
+const jugador2_name = document.getElementById("player2")
+
 document.getElementById("player1").innerText = "Jugador 1 "+player1Health;
-document.getElementById("player2").innerText = "Jugador 2 "+player2Health;
+document.getElementById("player2").innerText = "Jugador 2 " +player2Health;
 
 if (jugador1) {
     document.getElementById("player1").classList.add(jugador1);
@@ -68,7 +69,7 @@ function gameLoop() {
 function shootLaser(xPosition, direction) {
     const laser = document.createElement('div');
     laser.classList.add('laser');
-    laser.style.left = `${xPosition + 23}px`; 
+    laser.style.left = `${xPosition + 75}px`; 
     laser.direction = direction;
 
     if (direction === 'up') {
@@ -97,7 +98,7 @@ function moveLasers() {
                     laser.remove();
                     lasers.splice(index, 1);
                     player2Health -= 10;
-                    player2HealthDisplay.textContent = player2Health;
+                    jugador2_name.innerText = "Jugador 2 "+player2Health;
                     if (player2Health <= 0) {
                         alert('Player 1 wins!');
                         resetGame();
@@ -117,7 +118,7 @@ function moveLasers() {
                     laser.remove();
                     lasers.splice(index, 1);
                     player1Health -= 10;
-                    player1HealthDisplay.textContent = player1Health;
+                    jugador1_name.innerText = "Jugador 1 "+player1Health;
                     if (player1Health <= 0) {
                         alert('Player 2 wins!');
                         resetGame();
@@ -143,8 +144,8 @@ function checkCollision(laser, player) {
 function resetGame() {
     player1Health = 100;
     player2Health = 100;
-    player1HealthDisplay.textContent = player1Health;
-    player2HealthDisplay.textContent = player2Health;
+    jugador1_name.innerText = "Jugador 1 "+player1Health;
+    jugador2_name.innerText = "Jugador 2 "+player2Health;
 
    
     player1X = arena.offsetWidth / 2 - player1.offsetWidth / 2;
