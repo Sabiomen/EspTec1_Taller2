@@ -45,3 +45,21 @@ body {
     height: 20px;
     background-color: yellow;
 }
+
+.powerup {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: none; 
+}
+
+.powerup.attack {
+    background-color: red;
+    border-color: #111;
+}
+
+.powerup.health {
+    background-color: green;
+    border-color: #111;
+}

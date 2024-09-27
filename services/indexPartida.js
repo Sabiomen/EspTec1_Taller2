@@ -2,6 +2,12 @@ const jugador1 = localStorage.getItem("jugador1");
 const jugador2 = localStorage.getItem("jugador2");
 const arena = document.getElementById('arena');
 
+const powerupAttack = document.getElementById('powerup-attack');
+const powerupHealth = document.getElementById('powerup-health');
+const powerupInterval = 5000; 
+
+let player1AttackDamage = 10;
+let player2AttackDamage = 10
 let player1Health = 100;
 let player2Health = 100;
 
@@ -61,9 +67,27 @@ function gameLoop() {
 
     player1.style.left = `${player1X}px`;
     player2.style.left = `${player2X}px`;
+
+    if (powerupAttack.style.display === 'block' && checkPowerupCollision(player1, powerupAttack)) {
+        activateAttackPowerup(1);  
+        powerupAttack.style.display = 'none';
+    } else if (powerupAttack.style.display === 'block' && checkPowerupCollision(player2, powerupAttack)) {
+        activateAttackPowerup(2);  
+        powerupAttack.style.display = 'none';
+    }
+
+    if (powerupHealth.style.display === 'block' && checkPowerupCollision(player1, powerupHealth)) {
+        player1Health = Math.min(player1Health + 20, 100);  
+        jugador1_name.innerText = "Jugador 1 " + player1Health;
+        powerupHealth.style.display = 'none';
+    } else if (powerupHealth.style.display === 'block' && checkPowerupCollision(player2, powerupHealth)) {
+        player2Health = Math.min(player2Health + 20, 100);  
+        jugador2_name.innerText = "Jugador 2 " + player2Health;
+        powerupHealth.style.display = 'none';
+    }
+
     moveLasers();
-    
-    requestAnimationFrame(gameLoop);  
+    requestAnimationFrame(gameLoop);
 }
 
 function shootLaser(xPosition, direction) {
@@ -93,12 +117,11 @@ function moveLasers() {
             } else {
                 laser.style.bottom = `${currentBottom + laserSpeed}px`;
 
-               
                 if (checkCollision(laser, player2)) {
                     laser.remove();
                     lasers.splice(index, 1);
-                    player2Health -= 10;
-                    jugador2_name.innerText = "Jugador 2 "+player2Health;
+                    player2Health -= player1AttackDamage;  
+                    jugador2_name.innerText = "Jugador 2 " + player2Health;
                     if (player2Health <= 0) {
                         alert('Gana el Jugador 1!');
                         resetGame();
@@ -113,12 +136,11 @@ function moveLasers() {
             } else {
                 laser.style.top = `${currentTop + laserSpeed}px`;
 
-                
                 if (checkCollision(laser, player1)) {
                     laser.remove();
                     lasers.splice(index, 1);
-                    player1Health -= 10;
-                    jugador1_name.innerText = "Jugador 1 "+player1Health;
+                    player1Health -= player2AttackDamage;  
+                    jugador1_name.innerText = "Jugador 1 " + player1Health;
                     if (player1Health <= 0) {
                         alert('Gana el Jugador 2!');
                         resetGame();
@@ -128,6 +150,8 @@ function moveLasers() {
         }
     });
 }
+
+
 
 
 function checkCollision(laser, player) {
@@ -140,22 +164,74 @@ function checkCollision(laser, player) {
              laserRect.top > playerRect.bottom);
 }
 
+function spawnPowerup() {
+    const powerupType = Math.random() < 0.5 ? 'attack' : 'health'; 
+
+    if (powerupType === 'attack') {
+        placePowerup(powerupAttack);
+    } else {
+        placePowerup(powerupHealth);
+    }
+
+    setTimeout(spawnPowerup, powerupInterval);
+}
+
+function placePowerup(powerup) {
+    const randomX = Math.floor(Math.random() * (arena.offsetWidth - powerup.offsetWidth)); 
+    const positionArea = Math.random() < 0.5 ? 'top' : 'bottom'; 
+
+    if (positionArea === 'top') {
+        powerup.style.top = '60px';  
+        powerup.style.bottom = '';   
+        powerup.style.bottom = '60px'; 
+        powerup.style.top = '';      
+    }
+
+    powerup.style.left = `${randomX}px`;
+    powerup.style.display = 'block';
+}
+
+function activateAttackPowerup(player) {
+    if (player === 1) {
+        player1AttackDamage = 15;  
+        setTimeout(() => {
+            player1AttackDamage = 10;  
+        }, 5000);
+    } else if (player === 2) {
+        player2AttackDamage = 15;
+        setTimeout(() => {
+            player2AttackDamage = 10; 
+        }, 5000);
+    }
+}
+
+
+function checkPowerupCollision(player, powerup) {
+    const playerRect = player.getBoundingClientRect();
+    const powerupRect = powerup.getBoundingClientRect();
+
+    return !(playerRect.right < powerupRect.left ||
+             playerRect.left > powerupRect.right ||
+             playerRect.bottom < powerupRect.top ||
+             playerRect.top > powerupRect.bottom);
+}
+
 
 function resetGame() {
     player1Health = 100;
     player2Health = 100;
-    jugador1_name.innerText = "Jugador 1 "+player1Health;
-    jugador2_name.innerText = "Jugador 2 "+player2Health;
+    jugador1_name.innerText = "Jugador 1 " + player1Health;
+    jugador2_name.innerText = "Jugador 2 " + player2Health;
 
-   
     player1X = arena.offsetWidth / 2 - player1.offsetWidth / 2;
     player2X = arena.offsetWidth / 2 - player2.offsetWidth / 2;
     player1.style.left = `${player1X}px`;
     player2.style.left = `${player2X}px`;
 
-    
     lasers.forEach(laser => laser.remove());
-    lasers.length = 0;  
+    lasers.length = 0;
+
+    playerAttackDamage = 10; 
 
     for (let key in keys) {
         keys[key] = false;
@@ -170,5 +246,7 @@ if (imagenJugador1 && imagenJugador2) {
     document.getElementById("player1").style.backgroundImage = `url('resources/${imagenJugador1}.png')`;
     document.getElementById("player2").style.backgroundImage = `url('resources/${imagenJugador2}.png')`;
 }
+
+spawnPowerup();
 
 gameLoop();
