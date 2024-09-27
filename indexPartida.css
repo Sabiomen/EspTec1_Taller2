@@ -12,11 +12,12 @@ body {
 }   
 #arena {
     position: relative;
-    width: 800px;  
-    height: 500px;  
+    width: 1200px;  
+    height: 600px;  
     margin: 0 auto;
     background-color: #333;  
     border: 2px solid #555;  
+    background-image: url(resources/starry.png);
 }
 
 .player {

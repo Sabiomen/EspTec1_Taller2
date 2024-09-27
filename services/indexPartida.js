@@ -30,7 +30,7 @@ const keys = {};
 document.addEventListener('keydown', function(e) {
     keys[e.key] = true;
 
-    if (e.key === 'w' && !keys['shootingPlayer1']) {
+    if (e.key === 'w'||e.key === 'W' && !keys['shootingPlayer1']) {
         shootLaser(player1X, 'up');
         keys['shootingPlayer1'] = true;
     } else if (e.key === 'ArrowUp' && !keys['shootingPlayer2']) {
@@ -42,14 +42,14 @@ document.addEventListener('keydown', function(e) {
 document.addEventListener('keyup', function(e) {
     keys[e.key] = false;
 
-    if (e.key === 'w') keys['shootingPlayer1'] = false;
+    if (e.key === 'w'|| e.key === 'W') keys['shootingPlayer1'] = false;
     if (e.key === 'ArrowUp') keys['shootingPlayer2'] = false;
 });
 
 function gameLoop() {
-    if (keys['a'] && player1X > 0) {
+    if (keys['a'] || keys['A'] && player1X > 0) {
         player1X -= playerSpeed;
-    } else if (keys['d'] && player1X < arena.offsetWidth - player1.offsetWidth) {
+    } else if (keys['d'] || keys['D'] && player1X < arena.offsetWidth - player1.offsetWidth) {
         player1X += playerSpeed;
     }
 
