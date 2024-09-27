@@ -30,10 +30,10 @@ const keys = {};
 document.addEventListener('keydown', function(e) {
     keys[e.key] = true;
 
-    if (e.key === 'g' && !keys['shootingPlayer1']) {
+    if (e.key === 'w' && !keys['shootingPlayer1']) {
         shootLaser(player1X, 'up');
         keys['shootingPlayer1'] = true;
-    } else if (e.key === 'm' && !keys['shootingPlayer2']) {
+    } else if (e.key === 'ArrowUp' && !keys['shootingPlayer2']) {
         shootLaser(player2X, 'down');
         keys['shootingPlayer2'] = true;
     }
@@ -42,8 +42,8 @@ document.addEventListener('keydown', function(e) {
 document.addEventListener('keyup', function(e) {
     keys[e.key] = false;
 
-    if (e.key === 'g') keys['shootingPlayer1'] = false;
-    if (e.key === 'm') keys['shootingPlayer2'] = false;
+    if (e.key === 'w') keys['shootingPlayer1'] = false;
+    if (e.key === 'ArrowUp') keys['shootingPlayer2'] = false;
 });
 
 function gameLoop() {
@@ -100,7 +100,7 @@ function moveLasers() {
                     player2Health -= 10;
                     jugador2_name.innerText = "Jugador 2 "+player2Health;
                     if (player2Health <= 0) {
-                        alert('Player 1 wins!');
+                        alert('Gana el Jugador 1!');
                         resetGame();
                     }
                 }
@@ -120,7 +120,7 @@ function moveLasers() {
                     player1Health -= 10;
                     jugador1_name.innerText = "Jugador 1 "+player1Health;
                     if (player1Health <= 0) {
-                        alert('Player 2 wins!');
+                        alert('Gana el Jugador 2!');
                         resetGame();
                     }
                 }
