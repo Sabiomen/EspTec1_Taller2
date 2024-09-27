@@ -162,4 +162,13 @@ function resetGame() {
     }
 }
 
+
+
+const imagenJugador1 = localStorage.getItem("jugador1");
+const imagenJugador2 = localStorage.getItem("jugador2");
+if (imagenJugador1 && imagenJugador2) {
+    document.getElementById("player1").style.backgroundImage = `url('resources/${imagenJugador1}.png')`;
+    document.getElementById("player2").style.backgroundImage = `url('resources/${imagenJugador2}.png')`;
+}
+
 gameLoop();

@@ -28,13 +28,11 @@ body {
 }
 
 #player1 {
-    background-image: url('resources/zakuii.png');
     bottom: 0;
     left: 50%;
     
 }
 #player2{
-    background-image: url('resources/zakuii.png');
     top: 0;
     left: 50%;
 }
