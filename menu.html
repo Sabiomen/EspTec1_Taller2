@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Selecciona tu Personaje</h1>
+        
+        
+        <div class="jugador" id="player1">
+            <h2>Jugador 1</h2>
+            <div class="personajes">
+                <div class="contenedor">
+                    <img src="resources/Zakuiiselectscreen.png" alt="Personaje1">
+                    <button onclick="seleccionarPersonaje('personaje1', 1)">Zaku II Char Aznable</button>
+                </div>
+                <div class="contenedor">
+                    <img src="resources/megadoodselect.png" alt="Personaje2">
+                    <button onclick="seleccionarPersonaje('personaje2', 1)">El MegaHombre</button>
+                </div>
+                <div class="contenedor">
+                    <img src="resources/personaje3.png" alt="Personaje3">
+                    <button onclick="seleccionarPersonaje('personaje3', 1)">Sus</button>
+                </div>
+            </div>
+        </div>
+        <div class="jugador" id="player2">
+            <h2>Jugador 2</h2>
+            <div class="personajes">
+                <div class="contenedor">
+                    <img src="resources/Zakuiiselectscreen.png" alt="Personaje1">
+                    <button onclick="seleccionarPersonaje('personaje1', 2)">Zaku II Char Aznable</button>
+                </div>
+                <div class="contenedor">
+                    <img src="resources/megadoodselect.png" alt="Personaje2">
+                    <button onclick="seleccionarPersonaje('personaje2', 2)">El MegaHombre</button>
+                </div>
+                <div class="contenedor">
+                    <img src="resources/personaje3.png" alt="Personaje3">
+                    <button onclick="seleccionarPersonaje('personaje3', 2)">Sus</button>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="iniciarPartida()" >Iniciar Partida</button>
+    </div>
+
+
+
+
+
+    <script src="services/indexMenu.js"></script>
+
+</body>
+</html>

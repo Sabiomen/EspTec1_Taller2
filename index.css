@@ -1,0 +1,54 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #201e1e;
+    text-align: center;
+    color: white;
+}
+
+.container {
+    margin: 40px auto;
+    max-width: 700px;
+}
+
+
+
+.jugador {
+    margin: 25px;
+    padding: 20px;
+    border: 2px solid #555;
+    border-radius: 10px;
+    background-color: #555;
+    transition: transform 0.2s;
+}
+
+.jugador:hover {
+    transform: scale(1.02);
+}
+.personajes{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+}
+
+.personajes img{
+    width: 150px;
+    height: 225px;
+}
+
+
+button {
+    margin: 5px;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #94302b;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

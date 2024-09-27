@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    font-family: Arial, sans-serif;
+    flex-direction: column;
+}   
+#arena {
+    position: relative;
+    width: 1200px;  
+    height: 600px;  
+    margin: 0 auto;
+    background-color: #333;  
+    border: 2px solid #555;  
+    background-image: url(resources/starry.png);
+}
+
+.player {
+    position: absolute;
+    width: 171px;
+    height: 171px;
+    position: absolute;
+    background-size: cover;
+}
+
+#player1 {
+    bottom: 0;
+    left: 50%;
+    
+}
+#player2{
+    top: 0;
+    left: 50%;
+}
+
+
+.laser {
+    position: absolute;
+    width: 4px;
+    height: 20px;
+    background-color: yellow;
+}
+
+.powerup {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: none; 
+}
+
+.powerup.attack {
+    background-color: red;
+    border-color: #111;
+}
+
+.powerup.health {
+    background-color: green;
+    border-color: #111;
+}
